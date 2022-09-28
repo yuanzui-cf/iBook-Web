@@ -44,23 +44,12 @@ admin.use(body_parser.json());
 admin.use(body_parser.urlencoded({
     extended: false
 }));
-admin.use(express_ip().getIpInfoMiddleware)
-// TODO: Clent Main Interface
-// client.use(express.static(__dirname + "/public"));
-client.use((req, res) => {
-    res.status(404);
-    res.end();
-});
-admin.get(`/${(config.admin && config.admin.entrance) ? config.admin.entrance : "login"}`, (req, res) => {
-    // TODO: Admin Login
-});
-admin.get(`/login`, (req, res) => {
-    // TODO: Admin Login
-});
-admin.use((req, res) => {
-    res.status(403);
-    res.end();
-});
+admin.use(express_ip().getIpInfoMiddleware);
+module.exports = {
+    admin: admin,
+    client: client
+};
+require("./app");
 let start_status = {
     client: false,
     admin: false
